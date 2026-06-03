@@ -1,9 +1,7 @@
+import { MapView } from './components/MapView'
+
 function App() {
-  return (
-    <div>
-      <h1>GAT4</h1>
-    </div>
-  )
+  return <MapView />
 }
 
 export default App
