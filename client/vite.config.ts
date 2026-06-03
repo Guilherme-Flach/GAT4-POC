@@ -13,5 +13,6 @@ export default defineConfig({
     alias: {
       '@gat4/shared': path.resolve(__dirname, '../shared/src'),
     },
+    dedupe: ['zod'],
   },
 })
