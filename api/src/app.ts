@@ -1,5 +1,6 @@
 import cors from 'cors';
 import express from 'express';
+import morgan from 'morgan';
 
 import getStdDataRouter from './routes/getStdData';
 import healthRouter from './routes/health';
@@ -9,6 +10,7 @@ const app = express();
 
 const corsOrigin = process.env.CORS_ORIGIN ?? 'http://localhost:3001';
 app.use(cors({ origin: corsOrigin }));
+app.use(morgan('dev'));
 app.use(express.json());
 
 app.use('/health', healthRouter);
