@@ -17,7 +17,7 @@ const getAuth = () => {
   });
 };
 
-export const getSheetData = async (sheetName?: string): Promise<string[][]> => {
+export const getRawSheetData = async (sheetName: string): Promise<string[][]> => {
   const spreadsheetId = process.env.GOOGLE_SPREADSHEET_ID;
 
   if (!spreadsheetId) {
@@ -29,7 +29,7 @@ export const getSheetData = async (sheetName?: string): Promise<string[][]> => {
 
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: sheetName ?? "Sheet1",
+    range: sheetName,
   });
 
   return response.data.values ?? [];
