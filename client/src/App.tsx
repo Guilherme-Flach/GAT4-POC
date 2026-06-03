@@ -1,5 +1,6 @@
 import { MapView } from './components/MapView'
 import { useStdData } from './hooks/useStdData'
+import './App.css'
 
 function App() {
   const { data, error, loading } = useStdData(3)
@@ -7,10 +8,10 @@ function App() {
   return (
     <>
       <MapView markers={data} />
-      
-      <div style={{ position: 'absolute', top: 8, left: 8, background: 'white', padding: 8, borderRadius: 4, fontFamily: 'monospace', fontSize: 12 }}>
+
+      <div className="app-debug">
         {loading && <p>Loading...</p>}
-        {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+        {error && <p className="app-error">Error: {error}</p>}
         {data.map(row => (
           <div key={row.cns}>
             <strong>{row.cns}</strong> — lat: {row.lat ?? 'N/A'}, lon: {row.lon ?? 'N/A'}

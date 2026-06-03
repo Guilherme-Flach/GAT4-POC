@@ -1,0 +1,14 @@
+.app-debug {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: white;
+  padding: 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.app-error {
+  color: red;
+}
