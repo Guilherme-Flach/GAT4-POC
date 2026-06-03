@@ -1,8 +1,12 @@
 import { AddressRow, AddressSchema } from "../schemas/address";
 import { PatientRow, PatientRowSchema } from "../schemas/sheet";
+import { geocodeAddress } from "./geocoding";
 import { getRawSheetData } from "./sheets";
 
-export type PatientRowWithAddress = PatientRow & AddressRow;
+export type PatientRowWithAddress = PatientRow & AddressRow & {
+  lat: number | null;
+  lon: number | null;
+};
 
 const STD_COLUMNS: (keyof typeof PatientRowSchema.shape)[] = [
   "lastUpdateDate",
@@ -79,7 +83,7 @@ export const getStdData = async (
 
   const [, ...rows] = stdValues; // discard header row
 
-  return rows.map((row) => {
+  const joined = rows.map((row) => {
     const patient = parseStdRow(row);
     const address = addressLookup.get(patient.cns) ?? {
       cns: patient.cns,
@@ -89,4 +93,19 @@ export const getStdData = async (
     };
     return { ...patient, ...address };
   });
+
+  return Promise.all(
+    joined.map(async (row) => {
+      const coords =
+        row.street && row.streetNumber
+          ? await geocodeAddress(row.street, row.streetNumber)
+          : null;
+
+      return {
+        ...row,
+        lat: coords?.lat ?? null,
+        lon: coords?.lon ?? null,
+      };
+    }),
+  );
 };
