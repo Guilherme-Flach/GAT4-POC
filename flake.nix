@@ -15,10 +15,14 @@
           packages = with pkgs; [
             docker
             docker-compose
+            nodejs_22
+            yarn
           ];
 
           shellHook = ''
             echo "GAT4-POC dev environment"
+            echo "  node:           $(node --version)"
+            echo "  yarn:           $(yarn --version)"
             echo "  docker:         $(docker --version)"
             echo "  docker-compose: $(docker-compose --version)"
           '';

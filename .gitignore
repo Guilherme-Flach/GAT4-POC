@@ -1,5 +1,6 @@
 .claude
 .direnv/
+api/dist/
 
 # Logs
 logs
