@@ -11,6 +11,13 @@ services:
     networks:
       - gat4-net
 
+  client:
+    build: ./client
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./client/.env
+
 networks:
   gat4-net:
     name: gat4-net
