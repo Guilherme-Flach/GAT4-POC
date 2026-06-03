@@ -17,6 +17,7 @@
             docker-compose
             nodejs_22
             yarn
+            osmium-tool
           ];
 
           shellHook = ''
@@ -25,6 +26,7 @@
             echo "  yarn:           $(yarn --version)"
             echo "  docker:         $(docker --version)"
             echo "  docker-compose: $(docker-compose --version)"
+            echo "  osmium:         $(osmium --version 2>&1 | head -1)"
           '';
         };
       });

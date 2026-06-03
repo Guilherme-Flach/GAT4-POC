@@ -5,27 +5,13 @@ services:
       - "3000:3000"
     env_file:
       - ./api/.env
-    restart: unless-stopped
-    depends_on:
-      nominatim:
-        condition: service_healthy
-
-  nominatim:
-    image: mediagis/nominatim:5.3
-    ports:
-      - "3002:8080"
     environment:
-      PBF_URL: https://download.geofabrik.de/south-america/brazil/sul-latest.osm.pbf
-      NOMINATIM_PASSWORD: ${NOMINATIM_PASSWORD}
-    volumes:
-      - nominatim-data:/var/lib/postgresql/14/main
+      NOMINATIM_URL: http://nominatim:8080
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/status"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 10m
+    networks:
+      - gat4-net
 
-volumes:
-  nominatim-data:
+networks:
+  gat4-net:
+    name: gat4-net
+    external: true
