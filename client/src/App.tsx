@@ -6,7 +6,8 @@ function App() {
 
   return (
     <>
-      <MapView />
+      <MapView markers={data} />
+      
       <div style={{ position: 'absolute', top: 8, left: 8, background: 'white', padding: 8, borderRadius: 4, fontFamily: 'monospace', fontSize: 12 }}>
         {loading && <p>Loading...</p>}
         {error && <p style={{ color: 'red' }}>Error: {error}</p>}
